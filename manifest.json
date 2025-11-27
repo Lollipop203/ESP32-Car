@@ -1,0 +1,18 @@
+{
+  "name": "ESP32 Car Controller",
+  "short_name": "Car Control",
+  "description": "Điều khiển xe 3 bánh ESP32 qua Bluetooth",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f0f23",
+  "theme_color": "#0f0f23",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='128' fill='%23667eea'/%3E%3Cpath d='M128 256h256v-80l-48-80h-160l-48 80v80z' fill='%23fff'/%3E%3Ccircle cx='192' cy='320' r='32' fill='%23fff'/%3E%3Ccircle cx='320' cy='320' r='32' fill='%23fff'/%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

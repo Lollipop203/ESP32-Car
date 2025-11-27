@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Điều khiển xe 3 bánh ESP32 qua Bluetooth">
+    <meta name="theme-color" content="#0f0f23">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>ESP32 Car Controller</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <svg class="icon-car" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M5 17h14v-5l-2.5-4.5h-9L5 12v5z" />
+                        <circle cx="7.5" cy="17.5" r="1.5" />
+                        <circle cx="16.5" cy="17.5" r="1.5" />
+                    </svg>
+                    ESP32 Car
+                </h1>
+                <div class="status-container">
+                    <div class="status-indicator" id="statusIndicator"></div>
+                    <span class="status-text" id="statusText">Chưa kết nối</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Connection Section -->
+            <section class="connection-section glass-panel">
+                <button class="btn-connect" id="connectBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
+                    Kết nối BLE
+                </button>
+                <button class="btn-disconnect hidden" id="disconnectBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                    Ngắt kết nối
+                </button>
+            </section>
+
+            <!-- Speed Control -->
+            <section class="speed-section glass-panel">
+                <div class="speed-header">
+                    <label for="speedSlider" class="speed-label">Tốc độ</label>
+                    <span class="speed-value" id="speedValue">200</span>
+                </div>
+                <div class="speed-controls">
+                    <button class="btn-speed" id="decreaseSpeed" disabled>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                    </button>
+                    <input type="range" id="speedSlider" class="speed-slider" min="0" max="255" value="200" step="25"
+                        disabled>
+                    <button class="btn-speed" id="increaseSpeed" disabled>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Control Buttons -->
+            <section class="controls-section glass-panel">
+                <h2 class="section-title">Nút điều khiển</h2>
+                <div class="control-grid">
+                    <button class="control-btn" id="btnForward" disabled>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 5l0 14M5 12l7 -7l7 7" />
+                        </svg>
+                        <span>Tiến</span>
+                    </button>
+                    <button class="control-btn" id="btnLeft" disabled>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M5 12l14 0M12 5l-7 7l7 7" />
+                        </svg>
+                        <span>Trái</span>
+                    </button>
+                    <button class="control-btn control-btn-stop" id="btnStop" disabled>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="6" y="6" width="12" height="12" rx="2" />
+                        </svg>
+                        <span>Dừng</span>
+                    </button>
+                    <button class="control-btn" id="btnRight" disabled>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M19 12l-14 0M12 5l7 7l-7 7" />
+                        </svg>
+                        <span>Phải</span>
+                    </button>
+                    <button class="control-btn" id="btnBackward" disabled>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 19l0 -14M5 12l7 7l7 -7" />
+                        </svg>
+                        <span>Lùi</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Info Section -->
+            <section class="info-section glass-panel">
+                <div class="info-item">
+                    <footer class="footer">
+                        <p>ESP32 Car Controller v1.0</p>
+                    </footer>
+                </div>
+
+                <script src="app.js"></script>
+</body>
+
+</html>

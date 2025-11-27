@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Vercel
+.vercel
+
+# Backup files
+*.backup
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
