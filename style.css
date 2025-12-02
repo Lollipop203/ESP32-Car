@@ -3,35 +3,35 @@
     --bg-primary: #0f0f23;
     --bg-secondary: #1a1a2e;
     --bg-tertiary: #16213e;
-    
+
     --accent-primary: #00d4ff;
     --accent-secondary: #7b2cbf;
     --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     --accent-glow: rgba(102, 126, 234, 0.3);
-    
+
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.1);
     --glass-shadow: rgba(0, 0, 0, 0.3);
-    
+
     --text-primary: #ffffff;
     --text-secondary: #b8b8d1;
     --text-muted: #6e6e8f;
-    
+
     --success: #00ff88;
     --warning: #ffa500;
     --error: #ff4757;
-    
+
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
     --spacing-md: 1.5rem;
     --spacing-lg: 2rem;
     --spacing-xl: 3rem;
-    
+
     --radius-sm: 0.5rem;
     --radius-md: 1rem;
     --radius-lg: 1.5rem;
     --radius-full: 9999px;
-    
+
     --transition-fast: 0.15s ease;
     --transition-normal: 0.3s ease;
     --transition-slow: 0.5s ease;
@@ -44,7 +44,8 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-html, body {
+html,
+body {
     height: 100%;
     overflow-x: hidden;
 }
@@ -52,7 +53,7 @@ html, body {
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: var(--bg-primary);
-    background-image: 
+    background-image:
         radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
     color: var(--text-primary);
@@ -127,8 +128,15 @@ body {
 }
 
 @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
 }
 
 .status-text {
@@ -325,114 +333,6 @@ body {
     cursor: not-allowed;
 }
 
-/* Virtual Joystick */
-.joystick-section {
-    position: relative;
-}
-
-.joystick-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--spacing-lg);
-    min-height: 320px;
-}
-
-.joystick-base {
-    position: relative;
-    width: 200px;
-    height: 200px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 2px solid var(--glass-border);
-    border-radius: 50%;
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
-}
-
-.joystick-guide {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.joystick-guide-vertical {
-    left: 50%;
-    top: 10%;
-    bottom: 10%;
-    width: 2px;
-    transform: translateX(-50%);
-}
-
-.joystick-guide-horizontal {
-    top: 50%;
-    left: 10%;
-    right: 10%;
-    height: 2px;
-    transform: translateY(-50%);
-}
-
-.joystick-stick {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    background: var(--accent-gradient);
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    cursor: grab;
-    box-shadow: 0 4px 20px var(--accent-glow);
-    transition: box-shadow var(--transition-fast);
-    touch-action: none;
-}
-
-.joystick-stick:active {
-    cursor: grabbing;
-    box-shadow: 0 6px 30px var(--accent-glow);
-}
-
-.joystick-stick.disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-}
-
-.joystick-labels {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-}
-
-.joystick-label {
-    position: absolute;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    color: var(--text-muted);
-}
-
-.joystick-label-top {
-    top: var(--spacing-md);
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.joystick-label-bottom {
-    bottom: var(--spacing-md);
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.joystick-label-left {
-    left: var(--spacing-sm);
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.joystick-label-right {
-    right: var(--spacing-sm);
-    top: 50%;
-    transform: translateY(-50%);
-}
-
 /* Control Buttons */
 .control-grid {
     display: grid;
@@ -487,11 +387,30 @@ body {
 }
 
 /* Grid layout for buttons */
-#btnForward { grid-column: 2; grid-row: 1; }
-#btnLeft { grid-column: 1; grid-row: 2; }
-#btnStop { grid-column: 2; grid-row: 2; }
-#btnRight { grid-column: 3; grid-row: 2; }
-#btnBackward { grid-column: 2; grid-row: 3; }
+#btnForward {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#btnLeft {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#btnStop {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+#btnRight {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+#btnBackward {
+    grid-column: 2;
+    grid-row: 3;
+}
 
 /* Info Section */
 .info-item {
@@ -534,25 +453,16 @@ body {
     .app-container {
         padding: var(--spacing-xs);
     }
-    
+
     .glass-panel {
         padding: var(--spacing-sm);
     }
-    
+
     .app-title {
         font-size: 1.5rem;
     }
-    
-    .joystick-base {
-        width: 180px;
-        height: 180px;
-    }
-    
-    .joystick-stick {
-        width: 70px;
-        height: 70px;
-    }
-    
+
+
     .control-btn {
         min-height: 70px;
         padding: var(--spacing-sm);
@@ -561,6 +471,7 @@ body {
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {

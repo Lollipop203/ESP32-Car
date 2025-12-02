@@ -12,6 +12,7 @@
     <title>ESP32 Car Controller</title>
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="blocks.css">
     <link rel="manifest" href="manifest.json">
 
     <!-- Google Fonts -->
@@ -86,56 +87,207 @@
                 </div>
             </section>
 
-            <!-- Control Buttons -->
-            <section class="controls-section glass-panel">
-                <h2 class="section-title">Nút điều khiển</h2>
-                <div class="control-grid">
-                    <button class="control-btn" id="btnForward" disabled>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            <!-- Mode Switcher -->
+            <section class="mode-switcher glass-panel">
+                <div class="mode-tabs">
+                    <button class="mode-tab active" id="manualModeTab">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2">
-                            <path d="M12 5l0 14M5 12l7 -7l7 7" />
+                            <path
+                                d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
                         </svg>
-                        <span>Tiến</span>
+                        Thủ công
                     </button>
-                    <button class="control-btn" id="btnLeft" disabled>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    <button class="mode-tab" id="programModeTab">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2">
-                            <path d="M5 12l14 0M12 5l-7 7l7 7" />
+                            <rect x="3" y="3" width="7" height="7" rx="1" />
+                            <rect x="14" y="3" width="7" height="7" rx="1" />
+                            <rect x="14" y="14" width="7" height="7" rx="1" />
+                            <rect x="3" y="14" width="7" height="7" rx="1" />
                         </svg>
-                        <span>Trái</span>
-                    </button>
-                    <button class="control-btn control-btn-stop" id="btnStop" disabled>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <rect x="6" y="6" width="12" height="12" rx="2" />
-                        </svg>
-                        <span>Dừng</span>
-                    </button>
-                    <button class="control-btn" id="btnRight" disabled>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M19 12l-14 0M12 5l7 7l-7 7" />
-                        </svg>
-                        <span>Phải</span>
-                    </button>
-                    <button class="control-btn" id="btnBackward" disabled>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M12 19l0 -14M5 12l7 7l7 -7" />
-                        </svg>
-                        <span>Lùi</span>
+                        Lập trình
                     </button>
                 </div>
             </section>
 
+            <!-- Manual Mode -->
+            <div id="manualMode" class="mode-container">
+                <section class="controls-section glass-panel">
+                    <h2 class="section-title">Nút điều khiển</h2>
+                    <div class="control-grid">
+                        <button class="control-btn" id="btnForward" disabled>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 5l0 14M5 12l7 -7l7 7" />
+                            </svg>
+                            <span>Tiến</span>
+                        </button>
+                        <button class="control-btn" id="btnLeft" disabled>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M5 12l14 0M12 5l-7 7l7 7" />
+                            </svg>
+                            <span>Trái</span>
+                        </button>
+                        <button class="control-btn control-btn-stop" id="btnStop" disabled>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <rect x="6" y="6" width="12" height="12" rx="2" />
+                            </svg>
+                            <span>Dừng</span>
+                        </button>
+                        <button class="control-btn" id="btnRight" disabled>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 12l-14 0M12 5l7 7l-7 7" />
+                            </svg>
+                            <span>Phải</span>
+                        </button>
+                        <button class="control-btn" id="btnBackward" disabled>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 19l0 -14M5 12l7 7l7 -7" />
+                            </svg>
+                            <span>Lùi</span>
+                        </button>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Programming Mode -->
+            <div id="programmingMode" class="mode-container hidden">
+                <section class="block-palette glass-panel">
+                    <h2 class="section-title">Khối lệnh</h2>
+                    <div class="palette-blocks">
+                        <div class="palette-block block-forward" data-type="F">
+                            <div class="block-icon">⬆️</div>
+                            <div class="block-name">Tiến</div>
+                        </div>
+                        <div class="palette-block block-backward" data-type="B">
+                            <div class="block-icon">⬇️</div>
+                            <div class="block-name">Lùi</div>
+                        </div>
+                        <div class="palette-block block-left" data-type="L">
+                            <div class="block-icon">⬅️</div>
+                            <div class="block-name">Trái</div>
+                        </div>
+                        <div class="palette-block block-right" data-type="R">
+                            <div class="block-icon">➡️</div>
+                            <div class="block-name">Phải</div>
+                        </div>
+                        <div class="palette-block block-stop" data-type="S">
+                            <div class="block-icon">⏹️</div>
+                            <div class="block-name">Dừng</div>
+                        </div>
+                        <div class="palette-block block-wait" data-type="W">
+                            <div class="block-icon">⏱️</div>
+                            <div class="block-name">Chờ</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="workspace glass-panel">
+                    <div class="workspace-header">
+                        <h2 class="section-title">Chuỗi lệnh</h2>
+                        <button class="btn-clear" id="clearBtn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M3 6h18M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                            </svg>
+                            Xóa
+                        </button>
+                    </div>
+                    <div class="sequence-container" id="sequenceContainer">
+                        <div class="empty-state">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <rect x="3" y="3" width="7" height="7" rx="1" />
+                                <rect x="14" y="3" width="7" height="7" rx="1" />
+                                <rect x="14" y="14" width="7" height="7" rx="1" />
+                                <rect x="3" y="14" width="7" height="7" rx="1" />
+                            </svg>
+                            <p>Nhấn vào khối lệnh để thêm</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="execution-controls glass-panel">
+                    <button class="exec-btn exec-btn-play" id="playBtn" disabled>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                        Chạy
+                    </button>
+                    <button class="exec-btn exec-btn-pause hidden" id="pauseBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="6" y="4" width="4" height="16" />
+                            <rect x="14" y="4" width="4" height="16" />
+                        </svg>
+                        Tạm dừng
+                    </button>
+                    <button class="exec-btn exec-btn-stop" id="stopBtn" disabled>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="6" y="6" width="12" height="12" rx="2" />
+                        </svg>
+                        Dừng
+                    </button>
+                    <div class="progress-info">
+                        <span id="progressText">0 khối</span>
+                    </div>
+                </section>
+            </div>
+
             <!-- Info Section -->
             <section class="info-section glass-panel">
                 <div class="info-item">
-                    <footer class="footer">
-                        <p>ESP32 Car Controller v1.0</p>
-                    </footer>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 16v-4M12 8h.01" />
+                    </svg>
+                    <div class="info-text">
+                        <p class="info-title">Hướng dẫn</p>
+                        <p class="info-desc" id="infoDesc">Kết nối BLE và chọn chế độ điều khiển.</p>
+                    </div>
                 </div>
+            </section>
+        </main>
 
-                <script src="app.js"></script>
+        <!-- Footer -->
+        <footer class="footer">
+            <p>ESP32 Car Controller v2.0</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="blocks.js"></script>
+    <script>
+        // Mode switching
+        const manualModeTab = document.getElementById('manualModeTab');
+        const programModeTab = document.getElementById('programModeTab');
+        const manualMode = document.getElementById('manualMode');
+        const programmingMode = document.getElementById('programmingMode');
+        const infoDesc = document.getElementById('infoDesc');
+
+        manualModeTab.addEventListener('click', () => {
+            manualModeTab.classList.add('active');
+            programModeTab.classList.remove('active');
+            manualMode.classList.remove('hidden');
+            programmingMode.classList.add('hidden');
+            infoDesc.textContent = 'Kết nối BLE và sử dụng các nút điều khiển để di chuyển xe.';
+        });
+
+        programModeTab.addEventListener('click', () => {
+            manualModeTab.classList.remove('active');
+            programModeTab.classList.add('active');
+            manualMode.classList.add('hidden');
+            programmingMode.classList.remove('hidden');
+            infoDesc.textContent = 'Nhấn vào khối lệnh để thêm vào chuỗi, sau đó nhấn Chạy để thực thi.';
+        });
+
+        // Initialize block programming
+        document.addEventListener('DOMContentLoaded', initializeBlockProgramming);
+    </script>
 </body>
 
 </html>

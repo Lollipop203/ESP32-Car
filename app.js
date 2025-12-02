@@ -8,6 +8,9 @@ let bleCharacteristic = null;
 let isConnected = false;
 let currentSpeed = 200;
 
+// Expose isConnected to window for cross-file access
+window.isConnected = false;
+
 // DOM Elements
 const connectBtn = document.getElementById('connectBtn');
 const disconnectBtn = document.getElementById('disconnectBtn');
@@ -150,6 +153,7 @@ async function connectBLE() {
         bleDevice.addEventListener('gattserverdisconnected', onDisconnected);
 
         isConnected = true;
+        window.isConnected = true;
         updateStatus('Đã kết nối', true);
         updateUIState(true);
 
@@ -176,10 +180,14 @@ function disconnectBLE() {
 
 function onDisconnected() {
     isConnected = false;
+    window.isConnected = false;
+    // Try to send stop command, but don't wait since we're disconnecting
+    if (bleCharacteristic) {
+        sendCommand('S').catch(() => { });
+    }
     bleCharacteristic = null;
     updateStatus('Chưa kết nối', false);
     updateUIState(false);
-    sendCommand('S'); // Stop car on disconnect
     console.log('Device disconnected');
 }
 
@@ -215,7 +223,7 @@ function updateUIState(connected) {
         connectBtn.classList.add('hidden');
         disconnectBtn.classList.remove('hidden');
 
-        // Enable controls
+        // Enable manual mode controls
         speedSlider.disabled = false;
         increaseSpeed.disabled = false;
         decreaseSpeed.disabled = false;
@@ -224,11 +232,18 @@ function updateUIState(connected) {
         btnLeft.disabled = false;
         btnRight.disabled = false;
         btnStop.disabled = false;
+
+        // Enable programming mode controls if there are blocks
+        const playBtn = document.getElementById('playBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        if (playBtn && commandSequence && commandSequence.length > 0) {
+            playBtn.disabled = false;
+        }
     } else {
         connectBtn.classList.remove('hidden');
         disconnectBtn.classList.add('hidden');
 
-        // Disable controls
+        // Disable manual mode controls
         speedSlider.disabled = true;
         increaseSpeed.disabled = true;
         decreaseSpeed.disabled = true;
@@ -237,6 +252,12 @@ function updateUIState(connected) {
         btnLeft.disabled = true;
         btnRight.disabled = true;
         btnStop.disabled = true;
+
+        // Disable programming mode controls
+        const playBtn = document.getElementById('playBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        if (playBtn) playBtn.disabled = true;
+        if (stopBtn) stopBtn.disabled = true;
     }
 }
 

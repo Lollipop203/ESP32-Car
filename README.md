@@ -2,17 +2,18 @@
 
 Ứng dụng web mobile hiện đại để điều khiển xe 3 bánh ESP32 qua Bluetooth Low Energy (BLE).
 
-## ✨ Tính năng
+## Tính năng
 
-- 🎮 **Virtual Joystick** - Điều khiển linh hoạt với cảm giác tự nhiên
-- 🎯 **Nút điều khiển trực tiếp** - Tiến, Lùi, Trái, Phải, Dừng
-- ⚡ **Điều chỉnh tốc độ** - Thanh trượt và nút tăng/giảm (0-255)
-- 🌙 **Giao diện dark mode** - Hiện đại với hiệu ứng glassmorphism
-- 📱 **PWA Support** - Cài đặt lên home screen như app thật
-- 🔄 **Responsive Design** - Hoạt động tốt trên mọi kích thước màn hình
-- 🎨 **Smooth Animations** - Chuyển động mượt mà, trải nghiệm cao cấp
+- **Hai chế độ điều khiển** - Thủ công và Lập trình
+- **Nút điều khiển trực tiếp** - Tiến, Lùi, Trái, Phải, Dừng
+- **Lập trình khối (Block Programming)** - Tạo chuỗi lệnh tự động
+- **Điều chỉnh tốc độ** - Thanh trượt và nút tăng/giảm (0-255)
+- **Giao diện dark mode** - Hiện đại với hiệu ứng glassmorphism
+- **PWA Support** - Cài đặt lên home screen như app thật
+- **Responsive Design** - Hoạt động tốt trên mọi kích thước màn hình
+- **Smooth Animations** - Chuyển động mượt mà, trải nghiệm cao cấp
 
-## 📋 Yêu cầu hệ thống
+## Yêu cầu hệ thống
 
 ### Trình duyệt hỗ trợ Web Bluetooth API:
 
@@ -31,16 +32,17 @@
 - Opera
 
 ### Phần cứng:
-- ESP32 với code `carcontrol.c` đã upload
+- ESP32 với code BLE đã upload
 - Module L298N
 - Xe 3 bánh với động cơ DC
 
-## 🚀 Hướng dẫn sử dụng
+##  Hướng dẫn sử dụng
 
 ### 1. Chuẩn bị
 
 1. **Upload code lên ESP32:**
-   - Mở file `carcontrol.c` trong Arduino IDE
+   - Mở code ESP32 trong Arduino IDE
+   - Đảm bảo tên BLE device là `ESP32_CAR`
    - Chọn board ESP32 và cổng COM phù hợp
    - Upload code lên board
 
@@ -82,18 +84,18 @@ Sau đó mở trình duyệt và truy cập: `http://localhost:8000`
    - Chọn `ESP32_CAR` từ danh sách thiết bị
    - Đợi kết nối thành công (chấm tròn chuyển xanh)
 
-2. **Điều khiển bằng Joystick:**
-   - Chạm và kéo joystick để điều khiển
-   - Kéo lên: Tiến
-   - Kéo xuống: Lùi
-   - Kéo trái: Rẽ trái
-   - Kéo phải: Rẽ phải
-   - Thả ra: Dừng
-
-3. **Điều khiển bằng nút:**
-   - Nhấn giữ nút để xe di chuyển
+2. **Chế độ Thủ công:**
+   - Nhấn giữ nút để xe di chuyển (Tiến/Lùi/Trái/Phải)
    - Thả ra để dừng
-   - Nhấn nút "Dừng" để dừng ngay
+   - Nhấn nút "Dừng" để dừng ngay lập tức
+
+3. **Chế độ Lập trình:**
+   - Chuyển sang tab "Lập trình"
+   - Nhấn vào các khối lệnh để thêm vào chuỗi
+   - Điều chỉnh thời gian (ms) cho mỗi khối
+   - Nhấn "Chạy" để thực thi chuỗi lệnh
+   - Có thể "Tạm dừng" hoặc "Dừng" trong khi chạy
+   
 
 4. **Điều chỉnh tốc độ:**
    - Kéo thanh trượt hoặc nhấn nút +/-
@@ -108,11 +110,11 @@ Sau đó mở trình duyệt và truy cập: `http://localhost:8000`
 3. App sẽ xuất hiện trên home screen
 
 **iOS (Safari):**
-1. Nhấn nút Share (⬆️)
+1. Nhấn nút Share 
 2. Chọn "Add to Home Screen"
 3. App sẽ xuất hiện như app native
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Không tìm thấy ESP32_CAR
 - Kiểm tra ESP32 đã bật và chạy code chưa
@@ -135,16 +137,25 @@ Sau đó mở trình duyệt và truy cập: `http://localhost:8000`
 - Kiểm tra tốc độ (phải > 0)
 - Kiểm tra kết nối dây giữa ESP32 và L298N
 
-## 📱 Giao diện
+### Không chạy được chương trình khối
+- Đảm bảo đã kết nối BLE
+- Kiểm tra đã thêm khối lệnh vào chuỗi chưa
+- Nút "Chạy" chỉ hoạt động khi đã kết nối
+
+## Giao diện
 
 - **Header:** Tên app và trạng thái kết nối
 - **Connection:** Nút kết nối/ngắt kết nối BLE
 - **Speed Control:** Điều chỉnh tốc độ động cơ
-- **Virtual Joystick:** Điều khiển liên tục
-- **Control Buttons:** Các nút điều khiển rời rạc
+- **Mode Switcher:** Chuyển đổi giữa chế độ Thủ công và Lập trình
+- **Manual Mode:** Các nút điều khiển trực tiếp
+- **Programming Mode:** 
+  - Block Palette - Bảng chọn khối lệnh
+  - Workspace - Chuỗi lệnh đã tạo
+  - Execution Controls - Nút chạy/dừng
 - **Info:** Hướng dẫn sử dụng
 
-## 🎨 Công nghệ sử dụng
+## Công nghệ sử dụng
 
 - **HTML5** - Cấu trúc semantic
 - **CSS3** - Glassmorphism, animations, gradients
@@ -152,26 +163,27 @@ Sau đó mở trình duyệt và truy cập: `http://localhost:8000`
 - **Web Bluetooth API** - Giao tiếp với ESP32
 - **PWA** - Progressive Web App support
 
-## 📝 Lưu ý
+## Lưu ý
 
 - Ứng dụng chỉ hoạt động với ESP32 có tên `ESP32_CAR`
 - Cần kết nối internet lần đầu để tải Google Fonts
 - Sau khi cài PWA, có thể dùng offline
 - Touch events được tối ưu cho mobile
 - Tự động dừng xe khi ngắt kết nối
+- Chế độ lập trình yêu cầu kết nối BLE trước khi chạy
 
-## 🔐 Bảo mật
+## Bảo mật
 
 - BLE connection chỉ trong phạm vi vài mét
 - Không lưu trữ dữ liệu cá nhân
 - Code chạy hoàn toàn trên client-side
 
-## 📄 License
+## License
 
 MIT License - Tự do sử dụng và chỉnh sửa
 
 ---
 
 **Phát triển bởi:** Antigravity AI Assistant  
-**Phiên bản:** 1.0  
+**Phiên bản:** 2.0  
 **Ngày cập nhật:** 2025-11-27
